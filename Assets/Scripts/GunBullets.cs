@@ -14,6 +14,8 @@ public class GunBullets : MonoBehaviour, IPointerClickHandler
 
     [SerializeField] private TextMeshProUGUI bulletsText;
 
+    [SerializeField] private const int MAX_BULLET = 6;
+
     private enum State
     {
         PowerUpOn,
@@ -22,7 +24,7 @@ public class GunBullets : MonoBehaviour, IPointerClickHandler
 
     private State powerUpState;
 
-    private int bullets = 6;
+    private int bullets;
 
     private bool outOfBullets = false;
 
@@ -35,7 +37,10 @@ public class GunBullets : MonoBehaviour, IPointerClickHandler
     void Start()
     {   
         powerUpState = State.PowerUpOff;
+        
+        bullets = MAX_BULLET;
         bulletsText.text = bullets.ToString();
+
         bulletsText.GetComponent<TextMeshProUGUI>().color = Color.grey;
     }
   
@@ -44,11 +49,7 @@ public class GunBullets : MonoBehaviour, IPointerClickHandler
         switch(powerUpState)
         {
             case State.PowerUpOn:
-                if(Input.GetMouseButtonDown(0) && !GameManager.Instance.GetGameOverActive())
-                {
-                    //infinite bullets
-                    
-                }
+                //infinite bullet
                 break;
             case State.PowerUpOff:
                 if(Input.GetMouseButtonDown(0) && !GameManager.Instance.GetGameOverActive())
@@ -87,7 +88,7 @@ public class GunBullets : MonoBehaviour, IPointerClickHandler
 
     public void Reload()
     {
-        bullets = 6;
+        bullets = MAX_BULLET;
         bulletsText.text = bullets.ToString();
         outOfBullets = false;
         bulletsText.GetComponent<TextMeshProUGUI>().color = Color.grey;
@@ -103,9 +104,9 @@ public class GunBullets : MonoBehaviour, IPointerClickHandler
     {
         powerUpState = State.PowerUpOn;
         bulletsText.color = Color.blue;
-        bulletsText.text = "Infinity";
+        bulletsText.text = "infinite";
 
-        bullets = 6;
+        bullets = MAX_BULLET;
         OnBullets?.Invoke(this, EventArgs.Empty);
         
     }
@@ -133,7 +134,7 @@ public class GunBullets : MonoBehaviour, IPointerClickHandler
     }
 
 
-    public void OnPointerClick(PointerEventData eventData)
+    public void OnPointerClick(PointerEventData eventData)//pointer right click
     {
         if(eventData.button == PointerEventData.InputButton.Right && powerUpState == State.PowerUpOff)
         {

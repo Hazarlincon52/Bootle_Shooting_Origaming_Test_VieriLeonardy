@@ -19,7 +19,8 @@ public class PopUp : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.position += new Vector3(0,1f,0) * floatingSpeed * Time.deltaTime;//Movement up
+        transform.position += new Vector3(0, 1f ,0) * floatingSpeed * Time.deltaTime;//Movement up a bit
+
         timer += Time.deltaTime;
         float fraction = timeAppear / 2f;
         if (timer > timeAppear) 
@@ -29,7 +30,7 @@ public class PopUp : MonoBehaviour
 
         else if (timer > fraction)//fade out effect
         {       
-            power.color= Color.Lerp(power.color,Color.clear,(timer - fraction)/(timeAppear - fraction));
+            power.color = Color.Lerp(power.color,Color.clear,(timer - fraction)/(timeAppear - fraction));
         }
 
     }

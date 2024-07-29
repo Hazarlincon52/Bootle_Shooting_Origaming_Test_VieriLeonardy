@@ -15,7 +15,7 @@ public class Bottles : MonoBehaviour
     [SerializeField] private float minRotation;
     [SerializeField] private float maxRotation;
     private float rotationSpeed;
-    [SerializeField]private float timeDes = 3f;
+    [SerializeField]private float timeDes = 3f;//time wait for animation then destroy
     [SerializeField]private float maxSpeedPowerUp = 4.5f;
     
     private bool rotateActive = true;
@@ -37,7 +37,7 @@ public class Bottles : MonoBehaviour
     {
         if(!rotateActive)
         {
-            //stop rotating and destroy in 2 second;
+            //stop rotating and destroy in 3 second;
             
             timeDes -= Time.deltaTime;
             if(timeDes <= 0)
@@ -68,7 +68,7 @@ public class Bottles : MonoBehaviour
 
     public void Hit() 
     {
-        if(!hitGround && !GunBullets.Instance.GetOutOfBullets())// every time bottle get shoot 
+        if(!hitGround && !GunBullets.Instance.GetOutOfBullets())// every time bottle get hit
         {
             GameManager.Instance.CalculateScore(point);
             ShowBreak();
